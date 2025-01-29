@@ -1,6 +1,14 @@
 import requests
 import psycopg2
 
+conn = psycopg2.connect(
+    database="peliculas_db",
+    user="postgres",
+    password="010001101000",
+    host="localhost",
+    port="5432"
+)
+
 diccionario = {
     'titulo': '',
     'pais': '',
@@ -37,7 +45,6 @@ def obtener_informacion_por_titulo(titulo):
             else:
                 poster_url = None
 
-            # Llenar el diccionario con los datos obtenidos
             diccionario['titulo'] = title
             diccionario["pais"] = countries
             diccionario["director"] = overview
@@ -50,7 +57,6 @@ def obtener_informacion_por_titulo(titulo):
     except requests.exceptions.RequestException as e:
         return None
 
-
 def insertar_pelicula(conn, titulo, pais, director, img_url):
     with conn.cursor() as cur:
         cur.execute(
@@ -58,14 +64,6 @@ def insertar_pelicula(conn, titulo, pais, director, img_url):
             (titulo, pais, director, img_url)
         )
         conn.commit()
-
-conn = psycopg2.connect(
-    database="peliculas_db",
-    user="postgres",
-    password="010001101000",
-    host="localhost",
-    port="5432"
-)
 
 with open('peliculas.txt', 'r') as archivo:
     for linea in archivo:
