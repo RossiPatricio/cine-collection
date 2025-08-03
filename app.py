@@ -7,7 +7,7 @@ app = Flask(__name__)
 def get_db_connection():
     conn = psycopg2.connect(
         host="localhost",
-        database="peliculas_db",
+        database="peliculas_database",
         user="postgres",
         password="010001101000",
         options='-c client_encoding=UTF8'
@@ -27,7 +27,6 @@ def get_peliculas():
     cur.close()
     conn.close()
 
-    # Formatear los datos en una lista de diccionarios
     peliculas_dict = []
     for pelicula in peliculas:
         peliculas_dict.append({

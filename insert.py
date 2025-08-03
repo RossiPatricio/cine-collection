@@ -2,7 +2,7 @@ import requests
 import psycopg2
 
 conn = psycopg2.connect(
-    database="peliculas_db",
+    database="peliculas_database",
     user="postgres",
     password="010001101000",
     host="localhost",
